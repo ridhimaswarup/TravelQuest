@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>TravelQuest — Your next story starts here</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-plane" viewBox="0 0 24 24"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2l-1.1.5 5.3 5.3-3 3H3l-1 1 3 2 2 3 1-1v-2l3-3 5.3 5.3.5-1.1z"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></symbol>
+  <symbol id="i-calendar" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></symbol>
+  <symbol id="i-wallet" viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></symbol>
+  <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></symbol>
+  <symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="7" r="4"/><path d="M2 21a7 7 0 0 1 14 0M16 3a4 4 0 0 1 0 8M22 21a7 7 0 0 0-4-6.3"/></symbol>
+  <symbol id="i-home" viewBox="0 0 24 24"><path d="m3 11 9-8 9 8M5 10v10h14V10"/></symbol>
+  <symbol id="i-heart" viewBox="0 0 24 24"><path d="M19 14c1.5-1.5 3-3.2 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.8 0-3 .5-4.5 2-1.5-1.5-2.7-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4 3 5.5l7 7Z"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
+  <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></symbol>
+  <symbol id="i-cloud" viewBox="0 0 24 24"><path d="M17.5 19a4.5 4.5 0 1 0-1.4-8.8A6 6 0 0 0 4.5 12 3.5 3.5 0 0 0 6 19Z"/></symbol>
+  <symbol id="i-cloud-sun" viewBox="0 0 24 24"><path d="M12 2v2M4.9 4.9l1.4 1.4M2 12h2M20 12h2M17.7 6.3l1.4-1.4M16 19H8a4 4 0 1 1 .9-7.9A5 5 0 0 1 18 13a3 3 0 0 1-2 6Z"/></symbol>
+  <symbol id="i-cloud-rain" viewBox="0 0 24 24"><path d="M16 14H8a4 4 0 1 1 .9-7.9A5 5 0 0 1 18 8a3 3 0 0 1-2 6ZM8 17v3M12 17v3M16 17v3"/></symbol>
+  <symbol id="i-snow" viewBox="0 0 24 24"><path d="M12 2v20M4.9 7l14.2 10M4.9 17 19.1 7"/></symbol>
+  <symbol id="i-wind" viewBox="0 0 24 24"><path d="M3 8h10a3 3 0 1 0-3-3M3 12h15a3 3 0 1 1-3 3M3 16h7"/></symbol>
+  <symbol id="i-mountain" viewBox="0 0 24 24"><path d="m8 3 4 8 5-5 5 15H2z"/></symbol>
+  <symbol id="i-waves" viewBox="0 0 24 24"><path d="M2 6c.6.5 1.2 1 2.5 1C7 7 7 5 9.5 5c2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1M2 12c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2s2.4 2 5 2c2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1M2 18c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2s2.4 2 5 2c2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/></symbol>
+  <symbol id="i-landmark" viewBox="0 0 24 24"><path d="M3 22h18M6 18v-7M10 18v-7M14 18v-7M18 18v-7M12 2l8 5H4z"/></symbol>
+  <symbol id="i-building" viewBox="0 0 24 24"><rect x="4" y="2" width="16" height="20" rx="1"/><path d="M9 22v-4h6v4M8 6h2M14 6h2M8 10h2M14 10h2M8 14h2M14 14h2"/></symbol>
+  <symbol id="i-leaf" viewBox="0 0 24 24"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.5 19 2c1 2 2 4.2 2 8 0 5.5-4.8 10-10 10ZM2 21c0-3 1.9-5.4 5-6"/></symbol>
+  <symbol id="i-coffee" viewBox="0 0 24 24"><path d="M10 2v2M14 2v2M6 2v2M17 8h1a4 4 0 1 1 0 8h-1M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4Z"/></symbol>
+  <symbol id="i-camera" viewBox="0 0 24 24"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3z"/><circle cx="12" cy="13" r="3"/></symbol>
+  <symbol id="i-utensils" viewBox="0 0 24 24"><path d="M3 2v7a2 2 0 0 0 2 2h4a2 2 0 0 0 2-2V2M7 2v20M21 15V2a5 5 0 0 0-5 5v6a2 2 0 0 0 2 2h3Zm0 0v7"/></symbol>
+  <symbol id="i-bag" viewBox="0 0 24 24"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4zM3 6h18M16 10a4 4 0 0 1-8 0"/></symbol>
+  <symbol id="i-moon" viewBox="0 0 24 24"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></symbol>
+  <symbol id="i-shirt" viewBox="0 0 24 24"><path d="M20.4 7 16 3l-2 2a3 3 0 0 1-4 0L8 3 3.6 7l2.6 3L8 9v12h8V9l1.8 1z"/></symbol>
+  <symbol id="i-boot" viewBox="0 0 24 24"><path d="M5 3h6v9l6 3a3 3 0 0 1 3 3v2H5z"/></symbol>
+  <symbol id="i-backpack" viewBox="0 0 24 24"><path d="M4 10a4 4 0 0 1 4-4h8a4 4 0 0 1 4 4v10a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2ZM9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2M8 21v-5h8v5M8 10h8"/></symbol>
+  <symbol id="i-star" viewBox="0 0 24 24"><path d="m12 2 3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></symbol>
+  <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20 15 15 0 0 1 0-20"/></symbol>
+  <symbol id="i-sparkles" viewBox="0 0 24 24"><path d="m12 3 1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9zM19 16l.7 1.8 1.8.7-1.8.7L19 21l-.7-1.8-1.8-.7 1.8-.7z"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></symbol>
+  <!-- song box icons -->
+  <symbol id="i-music" viewBox="0 0 24 24"><path d="M9 18V5l12-2v13M9 18a3 3 0 1 1-6 0 3 3 0 0 1 6 0ZM21 16a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/></symbol>
+  <symbol id="i-play" viewBox="0 0 24 24"><path d="m6 4 14 8-14 8z"/></symbol>
+  <symbol id="i-pause" viewBox="0 0 24 24"><path d="M6 4h4v16H6zM14 4h4v16h-4z"/></symbol>
+  <symbol id="i-plug" viewBox="0 0 24 24"><path d="M12 22v-5M9 8V2M15 8V2M18 8v5a4 4 0 0 1-4 4h-4a4 4 0 0 1-4-4V8Z"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2Z"/></symbol>
+  <symbol id="i-chat" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2Z"/></symbol>
+  <symbol id="i-trend" viewBox="0 0 24 24"><path d="m3 17 6-6 4 4 8-8M15 7h6v6"/></symbol>
+</svg>
+
+<!-- ===== NAVBAR ===== -->
+<nav id="navbar">
+  <a href="#home" class="logo"><svg class="icon"><use href="#i-plane"/></svg> Travel<span>Quest</span></a>
+  <button id="menuBtn" aria-label="Menu"><svg class="icon"><use href="#i-menu"/></svg></button>
+  <div id="navLinks">
+    <a href="#home">Home</a>
+    <a href="#explore">Explore</a>
+    <a href="#" data-region="india">India</a>
+    <a href="#" data-region="abroad">Abroad</a>
+    <a href="#myTrips">My Trips</a>
+    <a href="#planner" class="btn btn-dark small">PLAN A TRIP</a>
+  </div>
+</nav>
+
+<header id="home" class="hero">
+  <div class="sc card-pic sc-camera" data-d="18"><img src="images/hero-camera.png" alt="Vintage camera"></div>
+  <div class="sc card-pic sc-quote" data-d="-14"><img src="images/hero-quote.png" alt="Travel quote"></div>
+  <div class="sc sc-map" data-d="12"><img src="images/hero-map.png" alt="Travel quote on a vintage map"></div>
+  <div class="sc sc-ticket" data-d="-20"><img src="images/hero-ticket.png" alt="Ticket to happiness"></div>
+  <div class="sc sc-memories" data-d="16"><img src="images/hero-memories.png" alt="Memories plate"></div>
+  <div class="sc sc-adventurer" data-d="-16"><img src="images/hero-adventurer.png" alt="Adventurer"></div>
+  <div class="sc sc-balloon" data-d="22"><img src="images/hero-balloon.png" alt="Newspaper hot air balloon"></div>
+  <div class="sc sc-sunflower" data-d="-18"><img src="images/hero-sunflower.png" alt="Paper sunflower"></div>
+
+  <div class="hero-center">
+    <p class="label">Travel planning, reimagined</p>
+    <h1>TRAVEL<em>QUEST</em></h1>
+    <h2>Your next story starts here.</h2>
+    <p>Discover destinations, plan unforgettable trips, and turn your travel ideas into an adventure.</p>
+    <a href="#explore" class="btn btn-primary btn-fly">START EXPLORING <span class="fly"><svg class="icon"><use href="#i-plane"/></svg></span></a>
+  </div>
+</header>
+
+<section id="explore" class="section start">
+  <p class="label">Start here</p>
+  <h2 class="title">Where to next?</h2>
+
+  <div class="start-grid">
+    <!-- LEFT: where do you live? (filters your own city out of the lists, sets your currency) -->
+    <div class="panel home-card" id="where">
+      <p class="label">Home base</p>
+      <h3 class="card-title">Where do you live?</h3>
+      <p class="sub">We'll leave your own city out of the lists, set your currency, and show you what's worth discovering at home.</p>
+      <div class="where-row">
+        <select id="homePlace" aria-label="Where do you live?"></select>
+        <button class="btn btn-dark hidden" id="discoverBtn"></button>
+      </div>
+      <p class="fx-hint" id="whereNote"></p>
+    </div>
+
+    <!-- RIGHT: India or abroad (two boarding passes, click anywhere on a pass to open that list) -->
+    <div class="go-col">
+      <p class="label">Step 1</p>
+      <h3 class="card-title">Where do you want to go?</h3>
+      <div class="choose-grid">
+        <article class="big-card pass" data-region="india">
+          <div class="pass-main">
+            <div class="fld">TRAVELQUEST · BOARDING PASS</div>
+            <div class="pass-route">
+              <div><div class="fld">FROM</div><div class="val">YOU</div></div>
+              <svg class="icon xl"><use href="#i-plane"/></svg>
+              <div><div class="fld">TO</div><div class="dest">INDIA</div></div>
+            </div>
+            <p>Mountains, beaches, cities, culture and everything in between.</p>
+            <div class="pass-info">
+              <div><div class="fld">PLACES</div><div class="val" id="indiaCount"></div></div>
+              <div><div class="fld">GATE</div><div class="val">IN-01</div></div>
+              <div><div class="fld">SEAT</div><div class="val">Window</div></div>
+            </div>
+          </div>
+          <div class="pass-stub">
+            <div class="barcode"></div>
+            <span class="btn btn-dark">BOARD <svg class="icon arrow"><use href="#i-arrow"/></svg></span>
+          </div>
+        </article>
+        <article class="big-card pass" data-region="abroad">
+          <div class="pass-main">
+            <div class="fld">TRAVELQUEST · BOARDING PASS</div>
+            <div class="pass-route">
+              <div><div class="fld">FROM</div><div class="val">YOU</div></div>
+              <svg class="icon xl"><use href="#i-plane"/></svg>
+              <div><div class="fld">TO</div><div class="dest">WORLD</div></div>
+            </div>
+            <p>Discover new cities, cultures and unforgettable experiences.</p>
+            <div class="pass-info">
+              <div><div class="fld">PLACES</div><div class="val" id="abroadCount"></div></div>
+              <div><div class="fld">GATE</div><div class="val">WD-01</div></div>
+              <div><div class="fld">SEAT</div><div class="val">Aisle</div></div>
+            </div>
+          </div>
+          <div class="pass-stub">
+            <div class="barcode"></div>
+            <span class="btn btn-dark">BOARD <svg class="icon arrow"><use href="#i-arrow"/></svg></span>
+          </div>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== DISCOVER YOUR OWN CITY  ===== -->
+<section id="local" class="section tinted hidden">
+  <p class="label">Right where you are</p>
+  <h2 class="title" id="localTitle"></h2>
+  <p class="sub">A day or a weekend without leaving town. Pick your vibes and the plan changes.</p>
+  <div class="chips" id="localMoods"></div>
+  <div class="chips" id="localDays">
+    <button class="chip active" data-days="1">1 day</button>
+    <button class="chip" data-days="2">Weekend (2 days)</button>
+  </div>
+  <div class="chips" id="localVibes"></div>
+  <div id="localNote"></div>
+  <div class="local-grid">
+    <div class="days" id="localPlan"></div>
+    <aside class="local-side">
+      <div class="weather" id="localWeather"></div>
+      <div class="panel" id="localCheck"></div>
+      <div class="panel" id="localEat"></div>
+    </aside>
+  </div>
+</section>
+
+<!-- ===== DESTINATIONS (filled by script.js) ===== -->
+<section id="destinations" class="section tinted hidden">
+  <p class="label" id="destLabel">Step 2</p>
+  <h2 class="title" id="destTitle"></h2>
+  <p class="sub" id="destSub"></p>
+  <div id="destGrid" class="card-grid"></div>
+</section>
+
+<!-- ===== PLANNER ===== -->
+<section id="planner" class="section hidden">
+  <p class="label">Step 3 · Trip details</p>
+  <h2 class="title">PLAN YOUR ADVENTURE</h2>
+  <div class="selected-dest" id="selectedDest"></div>
+
+  <div class="planner-grid">
+    <div class="panel">
+      <h4>TRAVELLING FROM</h4>
+      <p class="home-line" id="homeLine"></p>
+      <p class="fx-hint" id="fxPreview"></p>
+      <h4>WHEN ARE YOU GOING?</h4>
+      <div class="row">
+        <label>Start date<input type="date" id="startDate"></label>
+        <label>End date<input type="date" id="endDate"></label>
+      </div>
+      <h4>HOW LONG?</h4>
+      <div class="chips" id="durationChips">
+        <button class="chip" data-days="3">3 days</button>
+        <button class="chip active" data-days="5">5 days</button>
+        <button class="chip" data-days="7">7 days</button>
+        <button class="chip" data-days="10">10+ days</button>
+      </div>
+      <h4>WHO ARE YOU TRAVELLING WITH?</h4>
+      <div class="chips" id="whoChips"></div>
+    </div>
+    <div class="panel">
+      <h4>WHAT'S YOUR BUDGET?</h4>
+      <div class="budget-amount" id="budgetLabel">₹25,000</div>
+      <input type="range" id="budgetSlider" min="5000" max="150000" step="1000" value="25000">
+      <h4>WHAT'S YOUR VIBE? <small>(pick any)</small></h4>
+      <div class="chips" id="vibeChips"></div>
+    </div>
+  </div>
+  <div class="center"><button id="buildBtn" class="btn btn-primary big"><svg class="icon"><use href="#i-sparkles"/></svg> BUILD MY ADVENTURE</button></div>
+</section>
+
+<!-- ===== LOADING ===== -->
+<section id="loading" class="section hidden center">
+  <div class="spinner"></div>
+  <h2 class="title">Planning your adventure...</h2>
+  <ul id="loadSteps"></ul>
+</section>
+
+<!-- ===== RESULTS (filled by script.js) ===== -->
+<section id="results" class="section hidden"></section>
+
+<!-- ===== MY TRIPS ===== -->
+<section id="myTrips" class="section tinted">
+  <p class="label">Saved</p>
+  <h2 class="title">MY TRIPS</h2>
+  <div id="tripsGrid" class="card-grid"></div>
+</section>
+
+<footer>TravelQuest · College mini-project · Frontend demo</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
