@@ -2,7 +2,7 @@
 
 **Plan trips in India and abroad with itineraries, live weather, currency-based budgets and time differences.**
 
-TravelQuest is a frontend-only travel planner built with plain **HTML, CSS and JavaScript**. There is no backend, no build step and no framework. Open `index.html` and it works.
+TravelQuest is a frontend-only travel planner using **HTML, CSS and JavaScript**. There is no backend, no build step and no framework. Open `index.html` and it works.
 
 ---
 
