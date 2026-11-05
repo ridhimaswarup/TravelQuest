@@ -1,4 +1,3 @@
-
 const $ = (id) => document.getElementById(id);
 
 // Returns an SVG icon from the sprite in index.html, e.g. icon("pin") or icon("sun", "big")
@@ -33,12 +32,25 @@ async function fetchJSON(url) {
   return res.json();
 }
 
+// Same as fetchJSON, but tries again once after a short pause (free APIs sometimes hiccup or rate-limit for a second)
+async function fetchRetry(url, tries = 2) {
+  let lastError;
+  for (let i = 0; i < tries; i++) {
+    try { return await fetchJSON(url); }
+    catch (err) { lastError = err; if (i < tries - 1) await new Promise((r) => setTimeout(r, 700)); }
+  }
+  throw lastError;
+}
+
 
 
 // Shared "know before you go" facts for every place in India (a place can override any of them)
 const IN_KNOW = { plug: "Types C, D, M · 230V", emergency: "112 (all emergencies)", tipping: "About 10% at restaurants if no service charge is added",
   phrases: [["Hello", "Namaste"], ["Thank you", "Dhanyavaad"], ["How much?", "Kitna hua?"]] };
 
+/* Songs: `youtubeId` is optional. If it is missing, still "PASTE_VIDEO_ID", or YouTube refuses to play it here
+   (many official videos block embedding, and YouTube also refuses pages opened as file://), the song box
+   automatically plays a free 30-second preview from the iTunes catalogue instead. So every song works with no setup. */
 const DESTINATIONS = [
   /* ---------- India ---------- */
   { name: "Goa", country: "India", region: "india", icon: "waves", cur: "INR", coords: [15.4909, 73.8278],
@@ -61,7 +73,9 @@ const DESTINATIONS = [
     shops: [["Tibetan Market", "Manali", "Shawls, caps and handicrafts."], ["Mall Road", "Manali", "Woollens and Kullu souvenirs."]],
     know: { ...IN_KNOW, language: "Hindi, Pahari, English", tip: "Altitude can cause headaches, so go slow on day one and drink plenty of water." },
     outfits: ["Jacket", "Sweater", "Jeans", "Boots"],
-    cafes: [["Cafe 1947", "Old Manali", 4.5, "₹₹", "Riverside hangout."], ["Drifters' Cafe", "Old Manali", 4.3, "₹₹", "Backpacker favourite."]] },
+    cafes: [["Cafe 1947", "Old Manali", 4.5, "₹₹", "Riverside hangout."], ["Drifters' Cafe", "Old Manali", 4.3, "₹₹", "Backpacker favourite."]],
+    song: { title: "Illahi", artist: "Arijit Singh · Yeh Jawaani Hai Deewani", youtubeId: "fdubeMFwuGs", start: 3, end: 33,
+            label: "TRIP SOUNDTRACK", caption: "30-second hook · soundtrack for your Manali trip" } },
   { name: "Kedarnath", country: "India", region: "india", icon: "landmark", cur: "INR", coords: [30.7352, 79.0669],
     colors: ["#5e4638", "#a8704a"], tags: ["Spiritual", "Trekking", "Mountains"], description: "A sacred Himalayan trek to the ancient shrine.",
     food: [["Aloo paratha and chai", "Tea Stall", "Rambara"], ["Hot dal-chawal meals", "Local Dhaba", "Gaurikund"]],
@@ -82,7 +96,10 @@ const DESTINATIONS = [
     shops: [["Hathi Pol Bazaar", "Old City", "Miniature paintings, puppets and textiles."], ["Shilpgram", "Havala", "Rajasthani crafts in a village-style fair."]],
     know: { ...IN_KNOW, language: "Hindi, Mewari, English", tip: "Bargain politely in the bazaars, and dress modestly at temples and palaces." },
     outfits: ["Kurta / dress", "Sun hat", "Sunglasses", "Juttis"],
-    cafes: [["Ambrai", "Lake Pichola", 4.6, "₹₹₹", "Dinner facing the City Palace."], ["Jheel's Ginger Coffee Bar", "Gangaur Ghat", 4.4, "₹₹", "Lakeside coffee."]] },
+    cafes: [["Ambrai", "Lake Pichola", 4.6, "₹₹₹", "Dinner facing the City Palace."], ["Jheel's Ginger Coffee Bar", "Gangaur Ghat", 4.4, "₹₹", "Lakeside coffee."]],
+    // Optional: put the part after "v=" of the YouTube link of "Masakali" in youtubeId. Left as is, the iTunes preview plays.
+    song: { title: "Masakali", artist: "Mohit Chauhan · Delhi-6", youtubeId: "SS3lIQdKP-A", start: 15, end: 35,
+            label: "TRIP SOUNDTRACK", caption: "30-second hook · soundtrack for your Udaipur trip" } },
   { name: "Kerala", country: "India", region: "india", icon: "leaf", cur: "INR", coords: [9.9312, 76.2673],
     colors: ["#3f5a49", "#6f9a80"], tags: ["Backwaters", "Nature", "Relaxation"], description: "Houseboats, tea hills and Ayurvedic calm.",
     food: [["Puttu and kadala curry", "Dhe Puttu", "Kochi"], ["Malabar biryani", "Kayees Rahmathulla Café", "Mattancherry"]],
@@ -98,7 +115,10 @@ const DESTINATIONS = [
     shops: [["Galeries Lafayette", "Opéra", "Fashion, beauty and a rooftop terrace."], ["Marché aux Puces de Saint-Ouen", "Saint-Ouen", "Vintage furniture and finds."]],
     know: { plug: "Types C, E · 230V", emergency: "112 (15 ambulance, 17 police)", language: "French", tipping: "Service is included; rounding up is a nice extra", phrases: [["Hello", "Bonjour"], ["Thank you", "Merci"], ["The bill, please", "L'addition, s'il vous plaît"]], tip: "Say “bonjour” when you walk into a shop. It really matters." },
     outfits: ["Trench coat", "Sweater", "Jeans", "Sneakers"],
-    cafes: [["Café de Flore", "Saint-Germain", 4.3, "€€€", "Legendary literary café."], ["Du Pain et des Idées", "10th arr.", 4.7, "€", "Best pastries in town."]] },
+    cafes: [["Café de Flore", "Saint-Germain", 4.3, "€€€", "Legendary literary café."], ["Du Pain et des Idées", "10th arr.", 4.7, "€", "Best pastries in town."]],
+    // Optional: put the part after "v=" of the YouTube link of "Amour Plastique" in youtubeId. Left as is, the iTunes preview plays.
+    song: { title: "Paris", artist: "The Chainsmokers", youtubeId: "RhU9MZ98jxo", start: 13, end: 43,
+            label: "TRIP SOUNDTRACK", caption: "30-second hook · soundtrack for your Paris trip" } },
   { name: "London", country: "United Kingdom", region: "abroad", icon: "landmark", cur: "GBP", coords: [51.5072, -0.1276],
     colors: ["#3a404d", "#a5575c"], tags: ["History", "Culture", "Shopping"], description: "Royal history, museums and markets.",
     food: [["Bacon naan roll", "Dishoom", "Covent Garden"], ["Salt beef bagel", "Beigel Bake", "Brick Lane"]],
@@ -112,21 +132,29 @@ const DESTINATIONS = [
     shops: [["Strand Bookstore", "Greenwich Village", "Books by the mile, new and used."], ["Chelsea Market", "Chelsea", "Food, gifts and small makers."]],
     know: { plug: "Types A, B · 120V (you may need a converter)", emergency: "911", language: "English (and many more)", tipping: "18–20% at restaurants, it is expected", phrases: [["Subway", "The train"], ["Bathroom", "Restroom"], ["Takeaway", "To go"]], tip: "Most subway rides work with a contactless tap, so you rarely need a ticket." },
     outfits: ["Light jacket", "Layers", "Jeans", "Sneakers"],
-    cafes: [["Russ & Daughters", "Lower East Side", 4.6, "$$", "Classic bagels."], ["Joe Coffee", "Greenwich Village", 4.4, "$$", "NYC coffee staple."]] },
+    cafes: [["Russ & Daughters", "Lower East Side", 4.6, "$$", "Classic bagels."], ["Joe Coffee", "Greenwich Village", 4.4, "$$", "NYC coffee staple."]],
+    // Video V8gvSEtzOQg, clip starts at 3:18 (198 s) and plays 30 s. If YouTube ever blocks it, the box falls back to the iTunes preview automatically.
+    song: { title: "Empire State of Mind", artist: "JAY-Z ft. Alicia Keys", youtubeId: "V8gvSEtzOQg", start: 198, end: 228,
+            label: "TRIP SOUNDTRACK", caption: "30-second hook · soundtrack for your New York trip" } },
   { name: "Switzerland", country: "Europe", region: "abroad", icon: "mountain", cur: "CHF", coords: [46.6863, 7.8632],
     colors: ["#44566b", "#b0615c"], tags: ["Alps", "Nature", "Scenic"], description: "Snowy peaks, lakes and scenic train rides.",
     food: [["Swiss chocolate and ice cream", "Confiserie Sprüngli", "Zürich"], ["Rösti and Swiss classics", "Zeughauskeller", "Zürich"]],
     shops: [["Bahnhofstrasse", "Zürich", "Swiss watches, chocolate and luxury shops."], ["Bucherer", "Lucerne", "Swiss watches."]],
     know: { plug: "Type J · 230V", emergency: "112 (144 ambulance, 117 police)", language: "German, French, Italian", tipping: "Service is included; rounding up is common", phrases: [["Hello", "Grüezi"], ["Thank you", "Danke / Merci"], ["Excuse me", "Entschuldigung"]], tip: "Public transport is excellent but pricey, so check rail passes before buying tickets." },
     outfits: ["Down jacket", "Gloves", "Hiking pants", "Hiking boots"],
-    cafes: [["Café Luce", "Lucerne", 4.5, "$$$", "Lake views and cakes."], ["Sprüngli", "Zürich", 4.6, "$$$", "Swiss chocolate heaven."]] },
+    cafes: [["Café Luce", "Lucerne", 4.5, "$$$", "Lake views and cakes."], ["Sprüngli", "Zürich", 4.6, "$$$", "Swiss chocolate heaven."]],
+    song: { title: "Home", artist: "Esmzeros", youtubeId: "DHEOF_rcND8", start: 123, end: 153,
+            label: "TRIP SOUNDTRACK", caption: "30-second hook · soundtrack for your Switzerland trip" } },
   { name: "Norway", country: "Europe", region: "abroad", icon: "snow", cur: "NOK", coords: [59.9139, 10.7522],
     colors: ["#3b5456", "#6b9a8f"], tags: ["Fjords", "Nature", "Northern Lights"], description: "Dramatic fjords and aurora skies.",
     food: [["Fresh seafood and fish soup", "Fiskeriet", "Oslo"], ["Smoked salmon and fish", "Bergen Fish Market", "Bergen"]],
     shops: [["Husfliden", "Oslo", "Norwegian knitwear and crafts."], ["Mathallen Food Hall", "Oslo", "Brown cheese, chocolate and local food gifts."]],
     know: { plug: "Types C, F · 230V", emergency: "112 police, 113 ambulance", language: "Norwegian (English widely spoken)", tipping: "Not expected; rounding up is appreciated", phrases: [["Hello", "Hei"], ["Thank you", "Takk"], ["Excuse me", "Unnskyld"]], tip: "Everything is expensive, so look for supermarket meals and picnic lunches." },
     outfits: ["Winter parka", "Scarf & beanie", "Thermal pants", "Insulated boots"],
-    cafes: [["Kaffebrenneriet", "Oslo", 4.5, "$$", "Norwegian coffee roasters."], ["Fiskeriet", "Oslo", 4.4, "$$$", "Fresh seafood."]] },
+    cafes: [["Kaffebrenneriet", "Oslo", 4.5, "$$", "Norwegian coffee roasters."], ["Fiskeriet", "Oslo", 4.4, "$$$", "Fresh seafood."]],
+    // Optional: put the part after "v=" of the YouTube link of Sia's "Snowman" in youtubeId. Left as is, the iTunes preview plays.
+    song: { title: "Snowman", artist: "Sia", youtubeId: "PASTE_VIDEO_ID", start: 8, end: 38,
+            label: "TRIP SOUNDTRACK", caption: "30-second hook · soundtrack for your Norway trip" } },
   { name: "Australia", country: "Oceania", region: "abroad", icon: "sun", cur: "AUD", coords: [-33.8688, 151.2093],
     colors: ["#4f6e6c", "#b5714a"], tags: ["Beaches", "Wildlife", "Adventure"], description: "Reefs, kangaroos and the Outback.",
     food: [["Flat white coffee", "Single O", "Surry Hills"], ["Italian pastries and cannoli", "Brunetti", "Carlton"]],
@@ -593,7 +621,9 @@ function knowHTML(dest) {
 /* ======================================================================
    5) WEATHER
    Open-Meteo (free, no key). Card shows: now (right now) + trip (real forecast if dates are within
-   16 days, otherwise typical weather of the same dates over the last 3 years). Failure → an honest message.
+   16 days, otherwise typical weather of the same dates over the last 3 years).
+   If Open-Meteo can't be reached, "right now" falls back to a simpler Open-Meteo call, then to wttr.in.
+   Failure of everything → an honest message.
    ====================================================================== */
 
 // Open-Meteo weather code → label + icon. A code uses the first row whose number is >= the code.
@@ -603,6 +633,18 @@ const WMO = [[0, "Clear Sky", "sun"], [2, "Partly Cloudy", "cloud-sun"], [3, "Cl
 function describeWeather(code) {
   const [, sky, ic] = WMO.find(([max]) => code <= max) || WMO[WMO.length - 1];
   return { sky, icon: ic };
+}
+
+// wttr.in gives a text description instead of a code, so map the words to our labels + icons
+function describeWords(text) {
+  const t = (text || "").toLowerCase();
+  if (/thunder/.test(t)) return { sky: "Thunderstorms", icon: "cloud-rain" };
+  if (/snow|sleet|blizzard|ice/.test(t)) return { sky: "Snowy", icon: "snow" };
+  if (/rain|drizzle|shower/.test(t)) return { sky: "Rainy", icon: "cloud-rain" };
+  if (/fog|mist|haze/.test(t)) return { sky: "Foggy", icon: "cloud" };
+  if (/partly|patchy/.test(t)) return { sky: "Partly Cloudy", icon: "cloud-sun" };
+  if (/cloud|overcast/.test(t)) return { sky: "Cloudy", icon: "cloud" };
+  return { sky: "Clear Sky", icon: "sun" };
 }
 
 // Most frequent {sky, icon} in a list
@@ -615,6 +657,7 @@ function mostCommonSky(list) {
 // Real forecast for the trip dates (only works for dates inside the next 16 days)
 function forecastForTrip(data, days, trip) {
   const d = data.daily;
+  if (!d) return null;
   const idx = days.map((day) => d.time.indexOf(day)).filter((i) => i !== -1);
   if (!idx.length) return null;
   const pick = (key) => idx.map((i) => d[key][i]);
@@ -631,7 +674,7 @@ function forecastForTrip(data, days, trip) {
 // Typical weather: the same dates in the previous 3 years (Open-Meteo historical archive)
 async function expectedForTrip(lat, lon, days) {
   const results = await Promise.allSettled([1, 2, 3].map((back) =>
-    fetchJSON("https://archive-api.open-meteo.com/v1/archive" + `?latitude=${lat}&longitude=${lon}`
+    fetchRetry("https://archive-api.open-meteo.com/v1/archive" + `?latitude=${lat}&longitude=${lon}`
       + `&start_date=${shiftYear(days[0], -back)}&end_date=${shiftYear(days[days.length - 1], -back)}`
       + "&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_sum&timezone=auto").then((j) => j.daily)));
 
@@ -660,23 +703,44 @@ async function expectedForTrip(lat, lon, days) {
   };
 }
 
+// "Right now" temperature, trying three sources in turn. Returns { now, data } (data = the full forecast if we got it).
+async function getNowAndForecast(lat, lon) {
+  const base = "https://api.open-meteo.com/v1/forecast" + `?latitude=${lat}&longitude=${lon}&timezone=auto`;
+
+  // 1) the full request: now + 16-day daily forecast
+  try {
+    const data = await fetchRetry(base + "&current=temperature_2m,weather_code"
+      + "&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max&forecast_days=16");
+    if (data && data.current) return { now: { temp: Math.round(data.current.temperature_2m), ...describeWeather(data.current.weather_code) }, data };
+  } catch (err) { console.warn("Weather: full Open-Meteo request failed", err); }
+
+  // 2) a simpler Open-Meteo request (only the current weather)
+  try {
+    const data = await fetchRetry(base + "&current_weather=true");
+    const c = data && data.current_weather;
+    if (c) return { now: { temp: Math.round(c.temperature), ...describeWeather(c.weathercode) }, data: null };
+  } catch (err) { console.warn("Weather: simple Open-Meteo request failed", err); }
+
+  // 3) a different weather service (wttr.in), in case Open-Meteo is blocked or busy
+  try {
+    const data = await fetchJSON(`https://wttr.in/${lat},${lon}?format=j1`);
+    const c = data && data.current_condition && data.current_condition[0];
+    if (c) return { now: { temp: Math.round(Number(c.temp_C)), ...describeWords(c.weatherDesc && c.weatherDesc[0] && c.weatherDesc[0].value) }, data: null };
+  } catch (err) { console.warn("Weather: wttr.in request failed", err); }
+
+  return { now: null, data: null };
+}
+
 // Returns { now, trip } — either can be null if it couldn't be loaded
 async function getWeather(dest, trip) {
   const [lat, lon] = dest.coords;
-  let data;
-  try {
-    data = await fetchJSON("https://api.open-meteo.com/v1/forecast" + `?latitude=${lat}&longitude=${lon}`
-      + "&current=temperature_2m,weather_code"
-      + "&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max"
-      + "&timezone=auto&forecast_days=16");
-  } catch (err) { return { now: null, trip: null }; }
+  const { now, data } = await getNowAndForecast(lat, lon);
 
-  const now = { temp: Math.round(data.current.temperature_2m), ...describeWeather(data.current.weather_code) };
   let tripWeather = null;
   if (trip.start && trip.end) {
     const days = dateRange(trip.start, trip.end);
-    tripWeather = forecastForTrip(data, days, trip);
-    if (!tripWeather) { try { tripWeather = await expectedForTrip(lat, lon, days); } catch (err) { /* card shows a message */ } }
+    if (data) tripWeather = forecastForTrip(data, days, trip);
+    if (!tripWeather) { try { tripWeather = await expectedForTrip(lat, lon, days); } catch (err) { console.warn("Weather: archive request failed", err); } }
   }
   return { now, trip: tripWeather };
 }
@@ -823,15 +887,21 @@ function budgetHTML(trip, dest, fx) {
 /* ======================================================================
    7) SONG
    The song box appears only for places with a `song` in DESTINATIONS. Icons live in the sprite in index.html.
+   Play order: YouTube clip (if the video id is real and embeddable) → otherwise a 30-second iTunes preview.
    ====================================================================== */
 
 let songPlayer = null;        // the YouTube player (created the first time play is clicked)
 let songTimer = null;         // checks the time so the clip stops at its end
 let youtubeApiPromise = null; // makes sure the YouTube script loads only once
+let songAudioEl = null;       // the plain <audio> used for the iTunes preview fallback
+let songMode = null;          // "youtube" or "preview"
 
 function songHTML(dest) {
   const s = dest.song;
   if (!s) return "";
+  const link = /^[\w-]{11}$/.test(s.youtubeId)
+    ? `https://www.youtube.com/watch?v=${s.youtubeId}`
+    : `https://www.youtube.com/results?search_query=${encodeURIComponent(s.title + " " + s.artist.split("·")[0].trim())}`;
   return `
     <div class="song">
       <div class="song-row">
@@ -845,7 +915,7 @@ function songHTML(dest) {
       </div>
       <div class="song-foot">
         <span id="songStatus">${s.caption}</span>
-        <a href="https://www.youtube.com/watch?v=${s.youtubeId}" target="_blank" rel="noopener">Full song on YouTube</a>
+        <a href="${link}" target="_blank" rel="noopener">Full song on YouTube</a>
       </div>
       <!-- Invisible holder: YouTube swaps the inner div for its player, so the hiding is on the OUTER div -->
       <div class="song-audio"><div id="songAudio"></div></div>
@@ -855,6 +925,7 @@ function songHTML(dest) {
 function loadYouTubeApi() {
   if (!youtubeApiPromise) {
     youtubeApiPromise = new Promise((resolve, reject) => {
+      if (window.YT && window.YT.Player) { resolve(); return; }
       window.onYouTubeIframeAPIReady = resolve;
       const tag = document.createElement("script");
       tag.src = "https://www.youtube.com/iframe_api";
@@ -865,6 +936,36 @@ function loadYouTubeApi() {
   return youtubeApiPromise;
 }
 
+// Finds a 30-second preview of the song in the free iTunes catalogue (no key needed)
+async function findPreview(song) {
+  const artist = song.artist.split("·")[0].replace(/ft\..*/i, "").trim();
+  const json = await fetchJSON(`https://itunes.apple.com/search?term=${encodeURIComponent(song.title + " " + artist)}&entity=song&limit=10`);
+  const title = song.title.toLowerCase();
+  const results = (json.results || []).filter((r) => r.previewUrl);
+  const hit = results.find((r) => r.trackName && r.trackName.toLowerCase().includes(title)) || null;
+  return hit ? hit.previewUrl : null;
+}
+
+// Fallback: play the iTunes preview with a normal audio element
+async function startPreview(song, button) {
+  $("songStatus").textContent = "Loading preview…";
+  try {
+    const url = await findPreview(song);
+    if (!url) throw new Error("No preview found");
+    stopSong();                                              // clear a failed YouTube player first
+    songAudioEl = new Audio(url);
+    songMode = "preview";
+    songAudioEl.addEventListener("play", () => { button.innerHTML = icon("pause"); $("songStatus").textContent = song.caption.replace("30-second hook", "30-second preview"); });
+    songAudioEl.addEventListener("pause", () => { button.innerHTML = icon("play"); });
+    songAudioEl.addEventListener("ended", () => { button.innerHTML = icon("play"); });
+    await songAudioEl.play();
+  } catch (err) {
+    console.warn("Song preview failed", err);
+    button.innerHTML = icon("play");
+    $("songStatus").textContent = "Couldn't play this song here. Try the YouTube link.";
+  }
+}
+
 // Play / pause button for the song box
 function setupSongPlayer(dest) {
   const button = $("songPlayBtn");
@@ -872,15 +973,22 @@ function setupSongPlayer(dest) {
   const song = dest.song;
 
   button.addEventListener("click", async () => {
-    if (songPlayer) {                                      // player exists → pause or resume
+    if (songMode === "preview" && songAudioEl) {           // preview exists → pause or resume
+      if (songAudioEl.paused) songAudioEl.play(); else songAudioEl.pause();
+      return;
+    }
+    if (songPlayer) {                                      // YouTube player exists → pause or resume
       if (songPlayer.getPlayerState() === YT.PlayerState.PLAYING) songPlayer.pauseVideo();
       else songPlayer.playVideo();
       return;
     }
+    if (!/^[\w-]{11}$/.test(song.youtubeId)) { startPreview(song, button); return; }   // no real video id → preview
+
     $("songStatus").textContent = "Loading…";
     try { await loadYouTubeApi(); }
-    catch (err) { youtubeApiPromise = null; $("songStatus").textContent = "Couldn't load the player. Check your internet."; return; }
+    catch (err) { youtubeApiPromise = null; startPreview(song, button); return; }       // YouTube blocked → preview
 
+    songMode = "youtube";
     songPlayer = new YT.Player("songAudio", {
       width: "200", height: "200", videoId: song.youtubeId,
       playerVars: { start: song.start, autoplay: 1, controls: 0, rel: 0, playsinline: 1 },
@@ -898,7 +1006,8 @@ function setupSongPlayer(dest) {
             clearInterval(songTimer);
           }
         },
-        onError: () => { $("songStatus").textContent = "This video can't be played here. Try the YouTube link."; stopSong(); button.innerHTML = icon("play"); }
+        // The video can't be embedded (owner blocked it, or the page is opened as file://) → use the preview instead
+        onError: () => { startPreview(song, button); }
       }
     });
   });
@@ -908,6 +1017,8 @@ function setupSongPlayer(dest) {
 function stopSong() {
   clearInterval(songTimer);
   if (songPlayer) { try { songPlayer.destroy(); } catch (err) { /* already gone */ } songPlayer = null; }
+  if (songAudioEl) { try { songAudioEl.pause(); } catch (err) { /* already gone */ } songAudioEl = null; }
+  songMode = null;
 }
 
 /* ======================================================================
